@@ -1,4 +1,4 @@
-const API_KEY = '';
+// const API_KEY = '';
 
 //dummy function
 function getCoordsForAddress(address) {
@@ -7,3 +7,4 @@ function getCoordsForAddress(address) {
         lng: -73.9871516
     }
 }
+module.exports = getCoordsForAddress;
