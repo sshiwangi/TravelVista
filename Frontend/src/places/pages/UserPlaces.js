@@ -1,40 +1,46 @@
-import React from 'react'
-import {useParams} from 'react-router-dom'
-import PlaceList from '../components/PlaceList'
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import PlaceList from "../components/PlaceList";
+import { useHttpClient } from "../../shared/hooks/http-hook";
+import ErrorModal from "../../shared/componets/UIElements/ErrorModal";
+import LoadingSpinner from "../../shared/componets/UIElements/LoadingSpinner";
 
-const DUMMY_PLACES = [
-    {
-        id: 'p1',
-        title: 'Empire state building',
-        description: 'One of the most famous sky scrapers in the world ',
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/10/Empire_State_Building_%28aerial_view%29.jpg',
-        address: '20 w 34th St, New York, NY 10001',
-        location: {
-            lat: 40.7484405,
-            lng: -73.9878584
-        },
-        creator: 'u1'
-    },
-    {
-        id: 'p2',
-        title: 'Emp. state building',
-        description: 'One of the most famous sky scrapers in the world ',
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/10/Empire_State_Building_%28aerial_view%29.jpg',
-        address: '20 w 34th St, New York, NY 10001',
-        location: {
-            lat: 40.7484405,
-            lng: -73.9878584
-        },
-        creator: 'u2'
-    }
-]
+const UserPlaces = () => {
+  const [loadedPlaces, setLoadedPlaces] = useState();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
-function UserPlaces() {
-    const userId = useParams().userId; //executed as a function and gives us access to the parameters as it's called
-    const loadedPlaces = DUMMY_PLACES.filter(place => place.creator === userId);
-    return (
-    <PlaceList items={loadedPlaces}/>
-  )
-}
+  const userId = useParams().userId;
 
-export default UserPlaces
+  useEffect(() => {
+    const fetchPlaces = async () => {
+      try {
+        const responseData = await sendRequest(
+          process.env.REACT_APP_BACKEND_URL + `/places/user/${userId}`
+        );
+        setLoadedPlaces(responseData.places);
+      } catch (err) {}
+    };
+    fetchPlaces();
+  }, [sendRequest, userId]);
+
+  const placeDeletedHandler = (deletedPlaceId) => {
+    setLoadedPlaces((prevPlaces) =>
+      prevPlaces.filter((place) => place.id !== deletedPlaceId)
+    );
+  };
+  return (
+    <React.Fragment>
+      <ErrorModal error={error} onClear={clearError} />
+      {isLoading && (
+        <div className="center">
+          <LoadingSpinner />
+        </div>
+      )}
+      {!isLoading && loadedPlaces && (
+        <PlaceList items={loadedPlaces} onDeletePlace={placeDeletedHandler} />
+      )}
+    </React.Fragment>
+  );
+};
+
+export default UserPlaces;
