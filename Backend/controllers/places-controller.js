@@ -69,12 +69,21 @@ const createPlace = async (req, res, next) => {
   const { title, description, address } = req.body;
   const coordinates = getCoordsForAddress(address);
 
+  let imagePath;
+
+  if (req.file && req.file.path) {
+    imagePath = req.file.path;
+  } else {
+    imagePath =
+      "https://media.istockphoto.com/id/1368424494/photo/studio-portrait-of-a-cheerful-woman.webp?b=1&s=170667a&w=0&k=20&c=VEE1756TeCzYH2uPsFZ_P8H3Di2j_jw8aOT6zd7V8JY=";
+  }
+
   const createdPlace = new Place({
     title,
     description,
     address,
     location: coordinates,
-    image: req.file.path,
+    image: imagePath,
     creator: req.userData.userId,
   });
 
@@ -144,7 +153,6 @@ const updatePlace = async (req, res, next) => {
     );
     return next(error);
   }
-
   res.status(200).json({ place: place.toObject({ getters: true }) });
 };
 

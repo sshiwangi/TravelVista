@@ -56,10 +56,18 @@ const signup = async (req, res, next) => {
     return next(error);
   }
 
+  let imagePath;
+
+  if (req.file && req.file.path) {
+    imagePath = req.file.path;
+  } else {
+    imagePath =
+      "https://media.istockphoto.com/id/1368424494/photo/studio-portrait-of-a-cheerful-woman.webp?b=1&s=170667a&w=0&k=20&c=VEE1756TeCzYH2uPsFZ_P8H3Di2j_jw8aOT6zd7V8JY=";
+  }
   const createdUser = new User({
     name,
     email,
-    image: req.file.path,
+    image: imagePath,
     password: hashedPassword,
     places: [],
   });
@@ -67,6 +75,7 @@ const signup = async (req, res, next) => {
   try {
     await createdUser.save();
   } catch (err) {
+    console.log(err);
     const error = new HttpError("Signing up failed, please try again", 500);
     return next(error);
   }
@@ -87,6 +96,7 @@ const signup = async (req, res, next) => {
     .status(201)
     .json({ userId: createdUser.id, email: createdUser.email, token: token });
 };
+
 const login = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -142,7 +152,7 @@ const login = async (req, res, next) => {
   }
 
   res.json({
-    userId: existingUseruser.id,
+    userId: existingUser.id,
     email: existingUser.email,
     token: token,
   });

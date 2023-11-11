@@ -15,11 +15,10 @@ router.post(
   "/",
   fileUpload.single("image"),
   [
-    (check("title").not().isEmpty(),
+    check("title").not().isEmpty(),
     check("description").isLength({ min: 5 }),
-    check("address").not().isEmpty()),
+    check("address").not().isEmpty(),
   ],
-
   placesControllers.createPlace
 );
 

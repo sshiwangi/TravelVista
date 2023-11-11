@@ -1,0 +1,33 @@
+.hero-section {
+  padding: 0rem 2rem;
+  display: flex;
+  text-align: center;
+  margin-top: 6rem;
+  height: 60vh;
+  align-items: center;
+}
+.hero-heading {
+  color: #22166f;
+  font-size: 48px;
+  font-weight: 700;
+}
+p.hero-headline {
+  color: #635f7a;
+  font-weight: 500;
+  font-size: 18px;
+  margin-bottom: 3rem;
+}
+a.hero-button {
+  color: white;
+  background-color: #ff4d1c;
+  text-decoration: none;
+  padding: 1rem;
+  border-radius: 50px;
+  font-size: 20px;
+  font-weight: 600;
+}
+@media screen and (min-width: 768px) {
+  .hero-content {
+    width: 600px;
+  }
+}

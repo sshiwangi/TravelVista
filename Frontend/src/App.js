@@ -15,6 +15,7 @@ import MainNavigation from "./shared/componets/Navigation/MainNavigation";
 import { AuthContext } from "./shared/context/auth-context";
 import { useAuth } from "./shared/hooks/auth-hook";
 import LoadingSpinner from "./shared/componets/UIElements/LoadingSpinner";
+import Hero from "./Main Component/Hero";
 
 const Users = React.lazy(() => import("./users/pages/Users"));
 const NewPlace = React.lazy(() => import("./places/pages/NewPlace"));
@@ -24,6 +25,7 @@ const Auth = React.lazy(() => import("./users/pages/Auth"));
 
 function App() {
   const { token, login, logout, userId } = useAuth();
+  console.log("Token in App", token);
 
   let routes;
 
@@ -61,7 +63,7 @@ function App() {
     >
       <Router>
         <MainNavigation />
-        <main>
+        <main className="background-svg">
           <Suspense
             fallback={
               <div className="center">

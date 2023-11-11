@@ -60,5 +60,6 @@ mongoose
     app.listen(process.env.PORT || 5000);
   })
   .catch((err) => {
+    console.log("mongo db is the culprit");
     console.log(err);
   });

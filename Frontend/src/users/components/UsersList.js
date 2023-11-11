@@ -1,29 +1,33 @@
-import React from 'react'
-import './UserItem.css'
-import UserItem from './UserItem';
-import Card from '../../shared/componets/UIElements/Card';
+import React from "react";
+import "./UsersList.css";
+import UserItem from "./UserItem";
+import Card from "../../shared/componets/UIElements/Card";
 
 function UsersList(props) {
-    if(props.items.length === 0){
+  if (props.items.length === 0) {
+    return (
+      <div className="center">
+        <Card>
+          <h2>No users found.</h2>
+        </Card>
+      </div>
+    );
+  }
+  return (
+    <div className="users-list">
+      {props.items.map((user) => {
         return (
-            <div className='center'>
-                <Card>
-                <h2>No users found.</h2>
-                </Card>
-            </div>
+          <UserItem
+            key={user.id}
+            id={user.id}
+            image={user.image}
+            name={user.name}
+            placeCount={user.places.length}
+          />
         );
-    }
-    return <ul className='users-list'>
-        {props.items.map(user => {
-            return <UserItem 
-                key = {user.id} 
-                id={user.id} 
-                image={user.image} 
-                name={user.name} 
-                placeCount={user.places.length}
-            />
-        })}
-    </ul>
+      })}
+    </div>
+  );
 }
 
-export default UsersList
+export default UsersList;

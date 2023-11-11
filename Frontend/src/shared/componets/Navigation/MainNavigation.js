@@ -1,42 +1,45 @@
-import React, {useState} from 'react'
-import {Link} from 'react-router-dom'
-import MainHeader from './MainHeader'
-import NavLinks from './NavLinks'
-import './MainNavigation.css'
-import SideDrawer from './SideDrawer'
-import BackDrop from '../UIElements/BackDrop'
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import MainHeader from "./MainHeader";
+import NavLinks from "./NavLinks";
+import "./MainNavigation.css";
+import SideDrawer from "./SideDrawer";
+import BackDrop from "../UIElements/BackDrop";
 
 function MainNavigation(props) {
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
-  const openDrawerHandler = function (){
+  const openDrawerHandler = function () {
     setDrawerIsOpen(true);
-  }
+  };
   const closeDrawerHandler = () => {
     setDrawerIsOpen(false);
-  }
+  };
   return (
     <React.Fragment>
-      {drawerIsOpen && <BackDrop onClick={closeDrawerHandler}/>}
-    <SideDrawer show={drawerIsOpen} onClick={closeDrawerHandler}>
-        <nav className='main-navigation__drawer-nav'>
-            <NavLinks/>
+      {drawerIsOpen && <BackDrop onClick={closeDrawerHandler} />}
+      <SideDrawer show={drawerIsOpen} onClick={closeDrawerHandler}>
+        <nav className="main-navigation__drawer-nav">
+          <NavLinks />
         </nav>
-    </SideDrawer>
-    <MainHeader>
-       <button className='main-navigation__menu-btn'onClick={openDrawerHandler}> 
-        <span/>
-        <span/>
-        <span/>
-       </button>
-       <h1 className='main-navigation__title'>
-        <Link>YourPlaces</Link>
-       </h1>
-       <nav className='main-navigation__header-nav'>
-        <NavLinks/>
-       </nav>
-    </MainHeader>
+      </SideDrawer>
+      <MainHeader>
+        <button
+          className="main-navigation__menu-btn"
+          onClick={openDrawerHandler}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+        <h1 className="main-navigation__title">
+          <Link to="/">TravelVista</Link>
+        </h1>
+        <nav className="main-navigation__header-nav">
+          <NavLinks />
+        </nav>
+      </MainHeader>
     </React.Fragment>
-  )
+  );
 }
 
-export default MainNavigation
+export default MainNavigation;
