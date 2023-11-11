@@ -104,7 +104,10 @@ const Auth = () => {
       <ErrorModal error={error} onClear={clearError} />
       <Card className="authentication">
         {isLoading && <LoadingSpinner asOverlay />}
-        <h2>Login Required</h2>
+        <h2 className="login-header">Welcome Back!</h2>
+        <h3 className="login-headline">
+          Enter your details to log in to your account.
+        </h3>
         <hr />
         <form onSubmit={authSubmitHandler}>
           {!isLoginMode && (
