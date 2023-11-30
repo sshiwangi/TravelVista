@@ -7,6 +7,7 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 const Users = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [loadedUsers, setLoadedUsers] = useState();
+  const [isMounted, setIsMounted] = useState(true);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -14,16 +15,22 @@ const Users = () => {
         const responseData = await sendRequest(
           process.env.REACT_APP_BACKEND_URL + "/users"
         );
-
-        setLoadedUsers(responseData.users);
-      } catch (err) {}
+        if (isMounted) {
+          setLoadedUsers(responseData.users);
+        }
+      } catch (err) {
+        console.log(err);
+      }
     };
     fetchUsers();
-  }, [sendRequest]);
+    return () => {
+      setIsMounted(false);
+    };
+  }, [sendRequest, isMounted]);
 
   return (
     <React.Fragment>
-      <ErrorModal error={error} onClear={clearError} />
+      {/* <ErrorModal error={error} onClear={clearError} /> */}
       {isLoading && (
         <div className="center">
           <LoadingSpinner />

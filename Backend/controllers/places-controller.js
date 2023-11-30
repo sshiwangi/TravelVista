@@ -8,6 +8,7 @@ const User = require("../models/user");
 const mongoose = require("mongoose");
 
 const getPlaceById = async (req, res, next) => {
+  // console.log(req.body);
   const placeId = req.params.pid;
 
   let place;
@@ -61,18 +62,29 @@ const getPlacesByUserId = async (req, res, next) => {
 
 const createPlace = async (req, res, next) => {
   const errors = validationResult(req);
-
   if (!errors.isEmpty()) {
-    throw new HttpError("Invalid inputs passed, please check your data.", 422);
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
   }
+  // console.log(req.body);
+  const { title, description, address, image } = req.body;
+  // console.log(title);
+  // console.log(description);
 
-  const { title, description, address } = req.body;
-  const coordinates = getCoordsForAddress(address);
+  let coordinates;
+  try {
+    coordinates = getCoordsForAddress(address);
+  } catch (error) {
+    // console.log(error);
+    return next(error);
+  }
 
   let imagePath;
 
   if (req.file && req.file.path) {
     imagePath = req.file.path;
+    console.log(imagePath);
   } else {
     imagePath =
       "https://media.istockphoto.com/id/1368424494/photo/studio-portrait-of-a-cheerful-woman.webp?b=1&s=170667a&w=0&k=20&c=VEE1756TeCzYH2uPsFZ_P8H3Di2j_jw8aOT6zd7V8JY=";
@@ -86,20 +98,26 @@ const createPlace = async (req, res, next) => {
     image: imagePath,
     creator: req.userData.userId,
   });
-
+  console.log(createdPlace);
   let user;
   try {
     user = await User.findById(req.userData.userId);
+    // console.log(user);
   } catch (err) {
-    console.log(err);
-    const error = new HttpError("Creating Place failed, please try again", 500);
+    const error = new HttpError(
+      "Creating place failed, please try again.",
+      500
+    );
     return next(error);
   }
 
   if (!user) {
-    const error = new HttpError("Could not find user for provided id", 404);
+    const error = new HttpError("Could not find user for provided id.", 404);
     return next(error);
   }
+
+  // console.log(user);
+
   try {
     const sess = await mongoose.startSession();
     sess.startTransaction();
@@ -108,7 +126,10 @@ const createPlace = async (req, res, next) => {
     await user.save({ session: sess });
     await sess.commitTransaction();
   } catch (err) {
-    const error = new HttpError("Creating Place Failed, please try again", 500);
+    const error = new HttpError(
+      "Creating place failed, please try again.",
+      500
+    );
     return next(error);
   }
 
@@ -117,6 +138,7 @@ const createPlace = async (req, res, next) => {
 
 const updatePlace = async (req, res, next) => {
   const errors = validationResult(req);
+  // console.log(req);
 
   if (!errors.isEmpty()) {
     return next(
@@ -125,7 +147,8 @@ const updatePlace = async (req, res, next) => {
   }
   const { title, description } = req.body;
   const placeId = req.params.pid;
-
+  // console.log(title);
+  // console.log(placeId);
   let place;
   try {
     place = await Place.findById(placeId);

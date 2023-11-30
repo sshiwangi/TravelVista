@@ -60,6 +60,7 @@ const signup = async (req, res, next) => {
 
   if (req.file && req.file.path) {
     imagePath = req.file.path;
+    console.log(req.file.path);
   } else {
     imagePath =
       "https://media.istockphoto.com/id/1368424494/photo/studio-portrait-of-a-cheerful-woman.webp?b=1&s=170667a&w=0&k=20&c=VEE1756TeCzYH2uPsFZ_P8H3Di2j_jw8aOT6zd7V8JY=";
@@ -71,7 +72,7 @@ const signup = async (req, res, next) => {
     password: hashedPassword,
     places: [],
   });
-
+  console.log(createdUser);
   try {
     await createdUser.save();
   } catch (err) {

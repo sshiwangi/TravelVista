@@ -48,24 +48,32 @@ const NewPlace = () => {
       formData.append("title", formState.inputs.title.value);
       formData.append("description", formState.inputs.description.value);
       formData.append("address", formState.inputs.address.value);
-      formData.append("image", formState.inputs.image.value[0]);
+      formData.append("image", formState.inputs.image.value);
+      console.log(formState.inputs.image.value.name);
 
-      await sendRequest(
-        process.env.REACT_APP_BACKEND_URL + "/places",
+      const response = await sendRequest(
+        `${process.env.REACT_APP_BACKEND_URL}/places`,
         "POST",
         formData,
         {
           Authorization: "Bearer " + auth.token,
         }
       );
+      console.log(response);
       navigate("/");
-    } catch (err) {}
+    } catch (err) {
+      // console.log(err);
+    }
   };
 
   return (
     <React.Fragment>
-      <ErrorModal error={error} onClear={clearError} />
-      <form className="place-form" onSubmit={placeSubmitHandler}>
+      {/* <ErrorModal error={error} onClear={clearError} /> */}
+      <form
+        className="place-form"
+        onSubmit={placeSubmitHandler}
+        encType="multipart/form-data"
+      >
         {isLoading && <LoadingSpinner asOverlay />}
         <Input
           id="title"

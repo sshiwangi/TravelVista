@@ -18,7 +18,9 @@ const UserPlaces = () => {
           process.env.REACT_APP_BACKEND_URL + `/places/user/${userId}`
         );
         setLoadedPlaces(responseData.places);
-      } catch (err) {}
+      } catch (err) {
+        console.log(err);
+      }
     };
     fetchPlaces();
   }, [sendRequest, userId]);
@@ -28,9 +30,10 @@ const UserPlaces = () => {
       prevPlaces.filter((place) => place.id !== deletedPlaceId)
     );
   };
+  console.log(loadedPlaces);
   return (
     <React.Fragment>
-      <ErrorModal error={error} onClear={clearError} />
+      {/* <ErrorModal error={error} onClear={clearError} /> */}
       {isLoading && (
         <div className="center">
           <LoadingSpinner />

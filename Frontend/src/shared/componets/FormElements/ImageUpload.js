@@ -17,6 +17,7 @@ const ImageUpload = (props) => {
     const fileReader = new FileReader();
     fileReader.onload = () => {
       setPreviewUrl(fileReader.result);
+      // console.log(fileReader.result);
     };
     fileReader.readAsDataURL(file);
   }, [file]);
@@ -39,6 +40,9 @@ const ImageUpload = (props) => {
   const pickImageHandler = () => {
     filePickerRef.current.click();
   };
+  // console.log("file:", file.fileName);
+  // console.log("previewUrl:", previewUrl);
+  // console.log("isValid:", isValid);
 
   return (
     <div className="form-control">

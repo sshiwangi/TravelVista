@@ -21,6 +21,8 @@ function UpdatePlace() {
   const placeId = useParams().placeId;
   const navigate = useNavigate();
 
+  console.log(placeId);
+
   const [formState, inputHandler, setFormData] = useForm(
     {
       title: {
@@ -55,13 +57,16 @@ function UpdatePlace() {
           },
           true
         );
-      } catch (err) {}
+      } catch (err) {
+        console.log(err);
+      }
     };
     fetchPlace();
-  }, [sendRequest, placeId, setFormData]);
+  }, []);
 
   const placeUpdateSubmitHandler = async (event) => {
     event.preventDefault();
+    console.log("Update button clicked!");
     try {
       await sendRequest(
         `${process.env.REACT_APP_BACKEND_URL}/places/${placeId}`,
@@ -76,7 +81,9 @@ function UpdatePlace() {
         }
       );
       navigate("/" + auth.userId + "/places");
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   if (isLoading) {
@@ -99,7 +106,7 @@ function UpdatePlace() {
 
   return (
     <React.Fragment>
-      <ErrorModal error={error} onClear={clearError} />
+      {/* <ErrorModal error={error} onClear={clearError} /> */}
       {!isLoading && loadedPlace && (
         <form className="place-form" onSubmit={placeUpdateSubmitHandler}>
           <Input

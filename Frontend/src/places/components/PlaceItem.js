@@ -37,8 +37,11 @@ function PlaceItem(props) {
         }
       );
       props.onDelete(props.id);
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
+  console.log(props.image);
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />
