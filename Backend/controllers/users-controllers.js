@@ -7,16 +7,9 @@ const User = require("../models/user");
 const cache = require("memory-cache");
 
 const getUsers = async (req, res, next) => {
-  // let users;
+  let users;
   try {
-    const cachedUsers = cache.get("users");
-    if (cachedUsers) {
-      return res.json({ users: cachedUsers });
-    }
-    const users = await User.find({}, "-password");
-    const userArray = users.map((user) => user.toObject({ getters: true }));
-    cache.put("users", userArray, 5 * 60 * 1000);
-    res.json({ users: userArray });
+    users = await User.find({}, "-password");
   } catch (err) {
     const error = new HttpError(
       "Fetching users failed, please try again later",
@@ -24,9 +17,9 @@ const getUsers = async (req, res, next) => {
     );
     return next(error);
   }
-  // res.json({
-  //   users: (await users).map((user) => user.toObject({ getters: true })),
-  // });
+  res.json({
+    users: (await users).map((user) => user.toObject({ getters: true })),
+  });
 };
 
 const signup = async (req, res, next) => {
