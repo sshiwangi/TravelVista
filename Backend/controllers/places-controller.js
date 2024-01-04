@@ -67,14 +67,22 @@ const createPlace = async (req, res, next) => {
       new HttpError("Invalid inputs passed, please check your data.", 422)
     );
   }
-  // console.log(req.body);
-  const { title, description, address, image } = req.body;
-  // console.log(title);
-  // console.log(description);
 
+  const { title, description, address, image } = req.body;
+  //validating the address
+  if (!isValidAddress(address)) {
+    return next(new HttpError("Invalid address format.", 422));
+  }
+  console.log(address);
   let coordinates;
   try {
-    coordinates = getCoordsForAddress(address);
+    coordinates = await getCoordsForAddress(address);
+    console.log(coordinates);
+    if (!isValidCoordinates(coordinates)) {
+      return next(
+        new HttpError("Invalid coordinates from the geocoding API.", 500)
+      );
+    }
   } catch (error) {
     // console.log(error);
     return next(error);
@@ -134,6 +142,20 @@ const createPlace = async (req, res, next) => {
   }
 
   res.status(201).json({ place: createdPlace });
+};
+
+// Function to validate the address format
+const isValidAddress = (address) => {
+  return !!address.trim();
+};
+
+// Function to validate coordinates from the geocoding API response
+const isValidCoordinates = (coordinates) => {
+  return (
+    coordinates &&
+    typeof coordinates.lat === "number" &&
+    typeof coordinates.lng === "number"
+  );
 };
 
 const updatePlace = async (req, res, next) => {
