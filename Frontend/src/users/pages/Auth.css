@@ -25,3 +25,9 @@ h3.login-headline {
   font-weight: 500;
   margin-top: 0.5rem;
 }
+.spinner {
+  margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

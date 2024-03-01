@@ -32,7 +32,7 @@ const Users = () => {
     <React.Fragment>
       {/* <ErrorModal error={error} onClear={clearError} /> */}
       {isLoading && (
-        <div className="center">
+        <div className="spinner">
           <LoadingSpinner />
         </div>
       )}

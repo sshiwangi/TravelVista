@@ -23,8 +23,9 @@ main {
   padding: 0;
   margin: 0;
   width: 100%;
-  background-color: #fff9f0;
+  /* background-color: #fff9f0; */
   flex-direction: column;
+  padding: 2rem;
 }
 
 @media (min-width: 768px) {

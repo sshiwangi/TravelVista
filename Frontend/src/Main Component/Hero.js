@@ -10,13 +10,13 @@ function Hero() {
           Embark on a Journey of Discovery with TravelVista
         </div>
         <p className="hero-headline">
-          your go-to platform for sharing and exploring incredible travel
+          Your go-to platform for sharing and exploring incredible travel
           destinations around the world.
         </p>
-        <Link to="/auth" className="hero-button">
+        <a href="/auth" className="hero-button">
           {" "}
           Discover Now
-        </Link>
+        </a>
       </div>
     </div>
   );

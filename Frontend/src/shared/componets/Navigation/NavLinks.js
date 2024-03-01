@@ -8,7 +8,7 @@ function NavLinks(props) {
   return (
     <ul className="nav-links">
       <li>
-        <NavLink to="/" exact="true">
+        <NavLink to="/users" exact="true">
           All Users
         </NavLink>
       </li>
