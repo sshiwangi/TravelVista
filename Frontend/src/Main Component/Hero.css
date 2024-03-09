@@ -1,21 +1,24 @@
 .hero-section {
   /* padding: 0rem 2rem; */
   display: flex;
+  flex-direction: column;
   text-align: center;
   /* margin-top: 6rem; */
-  height: 100vh;
+  height: 70vh;
   align-items: center;
   background-image: url(../assets/ian-dooley-DuBNA1QMpPA-unsplash.jpg);
   background-size: cover;
   width: 100%;
   justify-content: center;
-  margin-top: 4rem;
-  border-radius: 2rem;
+  /* margin-top: 4rem; */
+  border-radius: 1.2rem;
+  position: relative;
 }
 .hero-heading {
   color: #ffffff;
   font-size: 48px;
   font-weight: 700;
+  margin-bottom: 1rem;
 }
 p.hero-headline {
   color: #ececec;

@@ -17,6 +17,7 @@ import { useAuth } from "./shared/hooks/auth-hook";
 import LoadingSpinner from "./shared/componets/UIElements/LoadingSpinner";
 import Hero from "./Main Component/Hero";
 import Footer from "./shared/componets/Navigation/Footer";
+import Home from "./pages/Home";
 
 const Users = React.lazy(() => import("./users/pages/Users"));
 const NewPlace = React.lazy(() => import("./places/pages/NewPlace"));
@@ -32,7 +33,7 @@ function App() {
   if (token) {
     routes = (
       <Routes>
-        <Route path="/" exact element={<Hero />} />
+        <Route path="/" exact element={<Home />} />
         <Route path="/users" exact element={<Users />} />
         <Route path="/:userId/places" exact element={<UserPlaces />} />
         <Route path="/places/new" exact element={<NewPlace />} />
@@ -44,7 +45,7 @@ function App() {
   } else {
     routes = (
       <Routes>
-        <Route path="/" exact element={<Hero />} />
+        <Route path="/" exact element={<Home />} />
         <Route path="/users" exact element={<Users />} />
         <Route path="/:userId/places" exact element={<UserPlaces />} />
         <Route path="/auth" exact element={<Auth />} />

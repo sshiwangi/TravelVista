@@ -1,6 +1,7 @@
 import React from "react";
 import "./Hero.css";
 import { Link } from "react-router-dom";
+import SearchBar from "./SearchBar";
 
 function Hero() {
   return (
@@ -13,11 +14,12 @@ function Hero() {
           Your go-to platform for sharing and exploring incredible travel
           destinations around the world.
         </p>
-        <a href="/auth" className="hero-button">
+        {/* <a href="/auth" className="hero-button">
           {" "}
           Discover Now
-        </a>
+        </a> */}
       </div>
+      <SearchBar />
     </div>
   );
 }

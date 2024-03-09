@@ -14,11 +14,26 @@ import ErrorModal from "../../shared/componets/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/componets/UIElements/LoadingSpinner";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import ImageUpload from "../../shared/componets/FormElements/ImageUpload";
+import loginImg from "../../assets/login.png";
 
 const Auth = () => {
   const auth = useContext(AuthContext);
   const [isLoginMode, setIsLoginMode] = useState(true);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const [signinClass, setSigninClass] = useState("bg-white");
+  const [signupClass, setSignupClass] = useState("");
+
+  const handleSigninClick = () => {
+    setIsLoginMode(true);
+    setSigninClass("bg-white");
+    setSignupClass("");
+  };
+
+  const handleSignupClick = () => {
+    setIsLoginMode(false);
+    setSignupClass("bg-white");
+    setSigninClass("");
+  };
 
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -60,7 +75,7 @@ const Auth = () => {
         false
       );
     }
-    setIsLoginMode((prevMode) => !prevMode);
+    // setIsLoginMode((prevMode) => !prevMode);
   };
 
   const authSubmitHandler = async (event) => {
@@ -104,59 +119,108 @@ const Auth = () => {
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />
-      <Card className="authentication">
-        {isLoading && <LoadingSpinner asOverlay />}
-        <h2 className="login-header">Welcome Back!</h2>
-        <h3 className="login-headline">
-          Enter your details to log in to your account.
-        </h3>
-        <hr />
-        <form onSubmit={authSubmitHandler}>
-          {!isLoginMode && (
+      <div className="flex w-full gap-6 py-10 justify-center items-center lg:items-start">
+        <Card className="authentication">
+          {isLoading && <LoadingSpinner asOverlay />}
+          <h2 className="login-header">Welcome Back!</h2>
+          <h3 className="login-headline">
+            Enter your details to log in to your account.
+          </h3>
+          {/* <hr /> */}
+          <div className="flex mt-4 p-1.5 rounded-md justify-between items-center bg-[#F0F0F2] gap-3">
+            <div
+              style={{
+                cursor: "pointer",
+                justifyContent: "center",
+                padding: "0.9rem 4rem",
+                width: "50%",
+                borderRadius: "0.375rem",
+                "@media (max-width: 576px)": {
+                  padding: "1rem 2rem",
+                },
+              }}
+              className={signinClass}
+              onClick={() => {
+                handleSigninClick();
+                switchModeHandler();
+              }}
+            >
+              Signin
+            </div>
+            <div
+              style={{
+                cursor: "pointer",
+                justifyContent: "center",
+                padding: "0.9rem 4rem",
+                width: "50%",
+                borderRadius: "0.375rem",
+                borderRadius: "0.375rem",
+                "@media screen and (max-width: 576px)": {
+                  padding: "1rem 2rem",
+                },
+              }}
+              className={signupClass}
+              onClick={() => {
+                handleSignupClick();
+                switchModeHandler();
+              }}
+            >
+              Signup
+            </div>
+          </div>
+          <form className="w-full lg:w-1/2" onSubmit={authSubmitHandler}>
+            {!isLoginMode && (
+              <Input
+                element="input"
+                id="name"
+                type="text"
+                label="Your Name"
+                validators={[VALIDATOR_REQUIRE()]}
+                errorText="Please enter a name."
+                onInput={inputHandler}
+                placeholder="Enter your name"
+              />
+            )}
+            {!isLoginMode && (
+              <ImageUpload
+                center
+                id="image"
+                onInput={inputHandler}
+                errorText="please provide an image"
+              />
+            )}
             <Input
               element="input"
-              id="name"
-              type="text"
-              label="Your Name"
-              validators={[VALIDATOR_REQUIRE()]}
-              errorText="Please enter a name."
+              id="email"
+              type="email"
+              label="Your email"
+              validators={[VALIDATOR_EMAIL()]}
+              errorText="Please enter a valid email address."
               onInput={inputHandler}
+              placeholder="Enter your email"
             />
-          )}
-          {!isLoginMode && (
-            <ImageUpload
-              center
-              id="image"
+            <Input
+              element="input"
+              id="password"
+              type="password"
+              label="Password"
+              validators={[VALIDATOR_MINLENGTH(6)]}
+              errorText="Please enter a valid password, at least 6 characters."
               onInput={inputHandler}
-              errorText="please provide an image"
+              placeholder="Enter your password"
             />
-          )}
-          <Input
-            element="input"
-            id="email"
-            type="email"
-            label="E-Mail"
-            validators={[VALIDATOR_EMAIL()]}
-            errorText="Please enter a valid email address."
-            onInput={inputHandler}
-          />
-          <Input
-            element="input"
-            id="password"
-            type="password"
-            label="Password"
-            validators={[VALIDATOR_MINLENGTH(6)]}
-            errorText="Please enter a valid password, at least 6 characters."
-            onInput={inputHandler}
-          />
-          <Button type="submit" disabled={!formState.isValid}>
-            {isLoginMode ? "LOGIN" : "SIGNUP"}
-          </Button>
-        </form>
-        <Button inverse onClick={switchModeHandler}>
-          SWITCH TO {isLoginMode ? "SIGNUP" : "LOGIN"}
-        </Button>
-      </Card>
+            <Button type="submit" disabled={!formState.isValid}>
+              {isLoginMode ? "LOGIN" : "SIGNUP"}
+            </Button>
+          </form>
+          {/* <Button inverse onClick={switchModeHandler}>
+            SWITCH TO {isLoginMode ? "SIGNUP" : "LOGIN"}
+          </Button> */}
+        </Card>
+        <div className="hidden lg:h-full lg:w-1/2 lg:flex items-center justify-center">
+          <img className="rounded-md" src={loginImg} />
+        </div>
+      </div>
     </React.Fragment>
   );
 };

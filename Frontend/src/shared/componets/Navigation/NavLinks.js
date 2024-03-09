@@ -8,28 +8,49 @@ function NavLinks(props) {
   return (
     <ul className="nav-links">
       <li>
-        <NavLink to="/users" exact="true">
+        <NavLink
+          to="/users"
+          exact="true"
+          className="hover:rounded-md active:rounded-md"
+        >
           All Users
         </NavLink>
       </li>
       {auth.isLoggedIn && (
         <li>
-          <NavLink to={`/${auth.userId}/places`}>My Places</NavLink>
+          <NavLink
+            className="hover:rounded-md active:rounded-md"
+            to={`/${auth.userId}/places`}
+          >
+            My Places
+          </NavLink>
         </li>
       )}
       {auth.isLoggedIn && (
         <li>
-          <NavLink to="/places/new">Add Place</NavLink>
+          <NavLink
+            className="hover:rounded-md active:rounded-md"
+            to="/places/new"
+          >
+            Add Place
+          </NavLink>
         </li>
       )}
       {!auth.isLoggedIn && (
-        <li>
-          <NavLink to="/auth">Log in</NavLink>
+        <li className="bg-[#ff4d1c] rounded-md p-2 text-white">
+          <NavLink className="hover:rounded-md active:rounded-md" to="/auth">
+            Log in
+          </NavLink>
         </li>
       )}
       {auth.isLoggedIn && (
         <li>
-          <button onClick={auth.logout}>LOGOUT</button>
+          <button
+            className="hover:rounded-md active:rounded-md hover:color-white"
+            onClick={auth.logout}
+          >
+            Logout
+          </button>
         </li>
       )}
     </ul>
