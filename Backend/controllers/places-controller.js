@@ -253,8 +253,25 @@ const deletePlace = async (req, res, next) => {
   res.status(200).json({ message: "deleted place" });
 };
 
+const getAllPlaces = async (req, res, next) => {
+  let places;
+  try {
+    places = await Place.find();
+    res.json({
+      places: places.map((place) => place.toObject({ getters: true })),
+    });
+  } catch (err) {
+    const error = new HttpError(
+      "Fetching places failed, please try again later",
+      500
+    );
+    return next(error);
+  }
+};
+
 exports.getPlaceById = getPlaceById;
 exports.getPlacesByUserId = getPlacesByUserId;
 exports.createPlace = createPlace;
 exports.updatePlace = updatePlace;
 exports.deletePlace = deletePlace;
+exports.getAllPlaces = getAllPlaces;

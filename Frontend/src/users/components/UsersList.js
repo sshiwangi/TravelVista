@@ -2,6 +2,8 @@ import React from "react";
 import "./UsersList.css";
 import UserItem from "./UserItem";
 import Card from "../../shared/componets/UIElements/Card";
+import usersPageImg from "../../assets/original-c3552a703d42f94e802f94a8e41396b7.png";
+import SearchBar from "../../Main Component/SearchBar";
 
 function UsersList(props) {
   if (props.items.length === 0) {
@@ -15,17 +17,22 @@ function UsersList(props) {
   }
   return (
     <div className="users-list">
-      {props.items.map((user) => {
-        return (
-          <UserItem
-            key={user.id}
-            id={user.id}
-            image={user.image}
-            name={user.name}
-            placeCount={user.places.length}
-          />
-        );
-      })}
+      <div className="users-page-img-container">
+        <SearchBar />
+      </div>
+      <div className="flex mt-20 justify-center flex-wrap">
+        {props.items.map((user) => {
+          return (
+            <UserItem
+              key={user.id}
+              id={user.id}
+              image={user.image}
+              name={user.name}
+              placeCount={user.places.length}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }

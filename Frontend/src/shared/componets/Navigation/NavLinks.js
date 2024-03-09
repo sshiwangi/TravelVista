@@ -7,13 +7,22 @@ function NavLinks(props) {
   const auth = useContext(AuthContext);
   return (
     <ul className="nav-links">
-      <li>
+      {/* <li>
         <NavLink
           to="/users"
           exact="true"
           className="hover:rounded-md active:rounded-md"
         >
           All Users
+        </NavLink>
+      </li> */}
+      <li>
+        <NavLink
+          to="/places"
+          exact="true"
+          className="hover:rounded-md active:rounded-md"
+        >
+          All Places
         </NavLink>
       </li>
       {auth.isLoggedIn && (

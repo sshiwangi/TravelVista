@@ -25,7 +25,10 @@
 
 .button--inverse {
   background: transparent;
-  color: #ff4d1c;
+  background-color: #ff4d1c;
+  width: 25%;
+  padding: 1rem;
+  color: white;
 }
 
 .button--inverse:hover,
@@ -60,4 +63,12 @@
 
 .button--big {
   font-size: 1.5rem;
+}
+
+.button-default {
+  background: transparent;
+  background-color: #ff4d1c;
+  width: 25%;
+  padding: 1rem;
+  color: white;
 }

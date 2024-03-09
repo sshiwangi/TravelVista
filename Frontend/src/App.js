@@ -15,9 +15,10 @@ import MainNavigation from "./shared/componets/Navigation/MainNavigation";
 import { AuthContext } from "./shared/context/auth-context";
 import { useAuth } from "./shared/hooks/auth-hook";
 import LoadingSpinner from "./shared/componets/UIElements/LoadingSpinner";
-import Hero from "./Main Component/Hero";
 import Footer from "./shared/componets/Navigation/Footer";
 import Home from "./pages/Home";
+import AllPlaces from "./places/pages/AllPlaces";
+import PlaceDetails from "./places/components/PlaceDetails";
 
 const Users = React.lazy(() => import("./users/pages/Users"));
 const NewPlace = React.lazy(() => import("./places/pages/NewPlace"));
@@ -34,7 +35,13 @@ function App() {
     routes = (
       <Routes>
         <Route path="/" exact element={<Home />} />
-        <Route path="/users" exact element={<Users />} />
+        <Route path="/places" exact element={<AllPlaces />} />
+        <Route
+          path="/places/placeDetails/:placeId"
+          exact
+          element={<PlaceDetails />}
+        />
+        {/* <Route path="/users" exact element={<Users />} /> */}
         <Route path="/:userId/places" exact element={<UserPlaces />} />
         <Route path="/places/new" exact element={<NewPlace />} />
         <Route path="/places/:placeId" exact element={<UpdatePlace />} />
@@ -46,7 +53,13 @@ function App() {
     routes = (
       <Routes>
         <Route path="/" exact element={<Home />} />
-        <Route path="/users" exact element={<Users />} />
+        <Route path="/places" exact element={<AllPlaces />} />
+        <Route
+          path="/places/placeDetails/:placeId"
+          exact
+          element={<PlaceDetails />}
+        />
+        {/* <Route path="/users" exact element={<Users />} /> */}
         <Route path="/:userId/places" exact element={<UserPlaces />} />
         <Route path="/auth" exact element={<Auth />} />
         <Route path="*" element={<Navigate to="/auth" />} />
