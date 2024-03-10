@@ -35,3 +35,8 @@ h3.login-headline {
   justify-content: center;
   align-items: center;
 }
+@media screen and (max-width: 640px) {
+  .authentication {
+    width: 100%;
+  }
+}

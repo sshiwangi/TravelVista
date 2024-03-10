@@ -15,8 +15,10 @@ import LoadingSpinner from "../../shared/componets/UIElements/LoadingSpinner";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import ImageUpload from "../../shared/componets/FormElements/ImageUpload";
 import loginImg from "../../assets/login.png";
+import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
+  const navigate = useNavigate();
   const auth = useContext(AuthContext);
   const [isLoginMode, setIsLoginMode] = useState(true);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -95,6 +97,7 @@ const Auth = () => {
           }
         );
         auth.login(responseData.userId, responseData.token);
+        navigate("/places");
       } catch (err) {}
     } else {
       try {
@@ -110,6 +113,7 @@ const Auth = () => {
         );
 
         auth.login(responseData.userId, responseData.token);
+        navigate("/places");
       } catch (err) {
         console.log(err);
       }
@@ -132,7 +136,7 @@ const Auth = () => {
               style={{
                 cursor: "pointer",
                 justifyContent: "center",
-                padding: "0.9rem 4rem",
+                padding: "0.9rem 3rem",
                 width: "50%",
                 borderRadius: "0.375rem",
                 "@media (max-width: 576px)": {
@@ -151,7 +155,7 @@ const Auth = () => {
               style={{
                 cursor: "pointer",
                 justifyContent: "center",
-                padding: "0.9rem 4rem",
+                padding: "0.9rem 3rem ",
                 width: "50%",
                 borderRadius: "0.375rem",
                 borderRadius: "0.375rem",
@@ -168,7 +172,10 @@ const Auth = () => {
               Signup
             </div>
           </div>
-          <form className="w-full lg:w-1/2" onSubmit={authSubmitHandler}>
+          <form
+            className="w-3/4 sm:w-full lg:w-1/2"
+            onSubmit={authSubmitHandler}
+          >
             {!isLoginMode && (
               <Input
                 element="input"
