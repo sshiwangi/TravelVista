@@ -5,4 +5,5 @@
   padding: 5rem;
   width: 100%;
   display: grid;
+  gap: 3rem;
 }

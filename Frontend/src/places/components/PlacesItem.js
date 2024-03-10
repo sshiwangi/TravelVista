@@ -9,85 +9,37 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 import LoadingSpinner from "../../shared/componets/UIElements/LoadingSpinner";
 import ErrorModal from "../../shared/componets/UIElements/ErrorModal";
 import { Link } from "react-router-dom";
+import { FaRegHeart } from "react-icons/fa6";
+import { IoBookmarkOutline } from "react-icons/io5";
 
 function PlacesItem(props) {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const auth = useContext(AuthContext);
+  const [creatorDetails, setCreatorDetails] = useState();
 
-  //   const [showMap, setShowMap] = useState(false);
-  //   const [showConfirmModal, setShowConfirmModal] = useState(false);
-  //   const openMapHandler = () => setShowMap(true);
-  //   const closeMapHandler = () => setShowMap(false);
+  useEffect(() => {
+    if (!props.creatorId) {
+      return;
+    }
+    fetchCreatorDetails();
+  }, [sendRequest, props.creatorId]);
 
-  //   const showDeleteWarningHandler = () => {
-  //     setShowConfirmModal(true);
-  //   };
+  const fetchCreatorDetails = async () => {
+    try {
+      const responseData = await sendRequest(
+        process.env.REACT_APP_BACKEND_URL + `/users/${props.creatorId}`
+      );
+      console.log(responseData);
+      setCreatorDetails(responseData);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  //   const cancelDeleteHandler = () => {
-  //     setShowConfirmModal(false);
-  //   };
-
-  //   const confirmDeleteHandler = async () => {
-  //     setShowConfirmModal(false);
-  //     try {
-  //       await sendRequest(
-  //         `${process.env.REACT_APP_BACKEND_URL}/places/${props.id}`,
-  //         "DELETE",
-  //         null,
-  //         {
-  //           Authorization: "Bearer " + auth.token,
-  //         }
-  //       );
-  //       props.onDelete(props.id);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   console.log(props.image);
   return (
     <React.Fragment>
-      {/* <ErrorModal error={error} onClear={clearError} /> */}
-      {/* <Modal
-        show={showMap}
-        onCancel={closeMapHandler}
-        header={props.address}
-        contentClass="place-item__modal-content"
-        footerClass="place-item__modal-actions"
-        footer={<Button onClick={closeMapHandler}>CLOSE</Button>}
-      >
-        <div className="map-container">
-          <MapComponent
-            center={props.coordinates}
-            zoom={16}
-            // style={{ height: "200px" }}
-          ></MapComponent>
-        </div>
-      </Modal> */}
-
-      {/* <Modal
-        show={showConfirmModal}
-        onCancel={cancelDeleteHandler}
-        header="Are you Sure?"
-        footerClass="place-item__modal-actions"
-        footer={
-          <React.Fragment>
-            <Button inverse onClick={cancelDeleteHandler}>
-              CANCEL
-            </Button>
-            <Button danger onClick={confirmDeleteHandler}>
-              DELETE
-            </Button>
-          </React.Fragment>
-        }
-      >
-        <p>
-          Do you want to proceed and delete this place? Please note that it
-          can't be undone thereafter.
-        </p>
-      </Modal> */}
-
       <Link to={`/places/placeDetails/${props.id}`}>
-        <li className="place-item">
+        <li className="places-item">
           <Card className="places-item__content">
             {isLoading && <LoadingSpinner asOverlay />}
             <div className="w-[16rem] rounded-md">
@@ -99,6 +51,10 @@ function PlacesItem(props) {
             </div>
             <div className="places-item__info">
               <h2>{props.title}</h2>
+              <div className="flex items-center gap-2">
+                <FaRegHeart size={24} />
+                <IoBookmarkOutline size={24} />
+              </div>
               {/* <h3>{props.address}</h3>
             <p>{props.description}</p> */}
             </div>
@@ -116,6 +72,15 @@ function PlacesItem(props) {
             )}
           </div> */}
           </Card>
+          {creatorDetails && creatorDetails.user && (
+            <div className="flex items-center gap-2">
+              <img
+                className="h-[40px] w-[40px] rounded-full"
+                src={`${process.env.REACT_APP_ASSET_URL}/${creatorDetails.user.image}`}
+              />
+              <span>{creatorDetails.user.name}</span>
+            </div>
+          )}
         </li>
       </Link>
     </React.Fragment>

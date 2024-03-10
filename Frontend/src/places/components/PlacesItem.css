@@ -1,6 +1,7 @@
-.place-item {
-  /* margin: 1rem 0; */
-  /* position: relative; */
+.places-item {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
 }
 
 .places-item__content {
@@ -12,7 +13,7 @@
 
 .places-item__info {
   position: absolute;
-  bottom: -2rem;
+  bottom: -1.9rem;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: rgb(32 32 32 / 30%);
@@ -22,6 +23,9 @@
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .places-item__image {
@@ -65,7 +69,7 @@
   width: 100%;
 }
 
-.place-item__content:hover .place-item__info {
+.places-item__content:hover .places-item__info {
   opacity: 1;
 }
 

@@ -93,11 +93,15 @@ function PlaceItem(props) {
               alt={props.title}
             />
           </div>
-          <div className="w-1/2">
+          <div className="w-full lg:w-1/2">
             <div className="place-item__info">
-              <h2>{props.title}</h2>
-              <h3>{props.address}</h3>
-              <p>{props.description}</p>
+              <h2 className="text-5xl font-bold">{props.title}</h2>
+              <p className="text-3xl text-left font-medium ">
+                {props.description}
+              </p>
+              <h3 className="text-xl text-left font-medium text-gray-400">
+                {props.address}
+              </h3>
             </div>
             <div className="place-item__actions">
               <Button inverse onClick={openMapHandler}>

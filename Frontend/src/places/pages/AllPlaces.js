@@ -34,11 +34,11 @@ const AllPlaces = () => {
   return (
     <React.Fragment>
       {/* <ErrorModal error={error} onClear={clearError} /> */}
-      {/* {isLoading && (
+      {isLoading && (
         <div className="center">
           <LoadingSpinner />
         </div>
-      )} */}
+      )}
       {!isLoading && loadedPlaces && <PlacesList items={loadedPlaces} />}
     </React.Fragment>
   );

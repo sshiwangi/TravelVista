@@ -11,6 +11,9 @@
   text-decoration: none;
   display: inline-block;
   width: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 .button:focus {
@@ -26,7 +29,7 @@
 .button--inverse {
   background: transparent;
   background-color: #ff4d1c;
-  width: 25%;
+  /* width: 33%; */
   padding: 1rem;
   color: white;
 }
@@ -40,6 +43,9 @@
 .button--danger {
   background: #830000;
   border-color: #830000;
+  /* width: 33%; */
+  padding: 1rem;
+  color: white;
 }
 
 .button--danger:hover,
@@ -68,7 +74,7 @@
 .button-default {
   background: transparent;
   background-color: #ff4d1c;
-  width: 25%;
+  /* width: 33%; */
   padding: 1rem;
   color: white;
 }

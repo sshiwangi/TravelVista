@@ -122,14 +122,14 @@ function PlaceDetails() {
           can't be undone thereafter.
         </p>
       </Modal>
-      <div className="flex w-full p-10 gap-10">
-        <div className="w-1/2">
+      <div className="flex flex-col lg:flex-row w-full lg:p-10 gap-10">
+        <div className="w-full lg:w-1/2">
           <img
             className="w-full rounded-md"
             src={`${process.env.REACT_APP_ASSET_URL}/${placeDetails.place.image}`}
           />
         </div>
-        <div className="w-1/2 flex flex-col gap-6">
+        <div className="w-full lg:w-1/2 flex flex-col gap-6">
           <div className="flex flex-col gap-6">
             <p className="text-5xl font-bold">{placeDetails.place.title}</p>
             <p className="text-3xl font-medium">

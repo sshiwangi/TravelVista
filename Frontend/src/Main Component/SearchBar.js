@@ -3,7 +3,7 @@ import { MdOutlineSearch } from "react-icons/md";
 
 export default function SearchBar() {
   return (
-    <div className="absolute bottom-0 w-1/2 shadow-lg h-[75px]">
+    <div className="absolute bottom-0 w-3/4 md:w-1/2 shadow-lg h-[75px]">
       <div className="relative mt-2 rounded-md h-full">
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
           <span className="text-gray-500">
