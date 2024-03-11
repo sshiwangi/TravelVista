@@ -77,7 +77,7 @@ function PlacesItem(props) {
         {creatorDetails && creatorDetails.user && (
           <div
             onClick={() => navigate(`/profile/${props.creatorId}`)}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 cursor-pointer"
           >
             <img
               className="h-[40px] w-[40px] rounded-full"

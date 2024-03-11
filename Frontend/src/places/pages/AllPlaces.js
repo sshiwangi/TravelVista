@@ -35,14 +35,14 @@ const AllPlaces = () => {
   return (
     <React.Fragment>
       {/* <ErrorModal error={error} onClear={clearError} /> */}
+      <div className="places-page-img-container">
+        <SearchBar />
+      </div>
       {isLoading && (
         <div className="center">
           <LoadingSpinner />
         </div>
       )}
-      <div className="places-page-img-container">
-        <SearchBar />
-      </div>
       {!isLoading && loadedPlaces && <PlacesList items={loadedPlaces} />}
     </React.Fragment>
   );
