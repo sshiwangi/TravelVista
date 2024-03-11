@@ -4,6 +4,7 @@ import PlacesList from "../components/PlacesList";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import ErrorModal from "../../shared/componets/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/componets/UIElements/LoadingSpinner";
+import SearchBar from "../../Main Component/SearchBar";
 
 const AllPlaces = () => {
   const [loadedPlaces, setLoadedPlaces] = useState();
@@ -39,6 +40,9 @@ const AllPlaces = () => {
           <LoadingSpinner />
         </div>
       )}
+      <div className="places-page-img-container">
+        <SearchBar />
+      </div>
       {!isLoading && loadedPlaces && <PlacesList items={loadedPlaces} />}
     </React.Fragment>
   );

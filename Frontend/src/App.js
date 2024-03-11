@@ -19,6 +19,7 @@ import Footer from "./shared/componets/Navigation/Footer";
 import Home from "./pages/Home";
 import AllPlaces from "./places/pages/AllPlaces";
 import PlaceDetails from "./places/components/PlaceDetails";
+import UsersProfile from "./users/pages/UsersProfile";
 
 const Users = React.lazy(() => import("./users/pages/Users"));
 const NewPlace = React.lazy(() => import("./places/pages/NewPlace"));
@@ -46,6 +47,7 @@ function App() {
         <Route path="/places/new" exact element={<NewPlace />} />
         <Route path="/places/:placeId" exact element={<UpdatePlace />} />
         <Route path="/auth" exact element={<Auth />} />
+        <Route path="/profile/:userId" exact element={<UsersProfile />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     );

@@ -8,7 +8,7 @@ import { AuthContext } from "../../shared/context/auth-context";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import LoadingSpinner from "../../shared/componets/UIElements/LoadingSpinner";
 import ErrorModal from "../../shared/componets/UIElements/ErrorModal";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaRegHeart } from "react-icons/fa6";
 import { IoBookmarkOutline } from "react-icons/io5";
 
@@ -16,6 +16,7 @@ function PlacesItem(props) {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const auth = useContext(AuthContext);
   const [creatorDetails, setCreatorDetails] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!props.creatorId) {
@@ -38,8 +39,8 @@ function PlacesItem(props) {
 
   return (
     <React.Fragment>
-      <Link to={`/places/placeDetails/${props.id}`}>
-        <li className="places-item">
+      <li className="places-item">
+        <Link to={`/places/placeDetails/${props.id}`}>
           <Card className="places-item__content">
             {isLoading && <LoadingSpinner asOverlay />}
             <div className="w-[16rem] rounded-md">
@@ -72,17 +73,20 @@ function PlacesItem(props) {
             )}
           </div> */}
           </Card>
-          {creatorDetails && creatorDetails.user && (
-            <div className="flex items-center gap-2">
-              <img
-                className="h-[40px] w-[40px] rounded-full"
-                src={`${process.env.REACT_APP_ASSET_URL}/${creatorDetails.user.image}`}
-              />
-              <span>{creatorDetails.user.name}</span>
-            </div>
-          )}
-        </li>
-      </Link>
+        </Link>
+        {creatorDetails && creatorDetails.user && (
+          <div
+            onClick={() => navigate(`/profile/${props.creatorId}`)}
+            className="flex items-center gap-2"
+          >
+            <img
+              className="h-[40px] w-[40px] rounded-full"
+              src={`${process.env.REACT_APP_ASSET_URL}/${creatorDetails.user.image}`}
+            />
+            <span>{creatorDetails.user.name}</span>
+          </div>
+        )}
+      </li>
     </React.Fragment>
   );
 }
