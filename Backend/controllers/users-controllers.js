@@ -193,7 +193,32 @@ const getUsersById = async (req, res, next) => {
   res.json({ user: user.toObject({ getters: true }) }); //=> {place} => {place: place}
 };
 
+const searchUsersByName = async (req, res, next) => {
+  const { name } = req.query; // Assuming the query parameter is 'name'
+
+  let users;
+  try {
+    users = await User.find({ name: { $regex: new RegExp(name, "i") } }).select(
+      "-password"
+    );
+  } catch (err) {
+    const error = new HttpError(
+      "Fetching users by name failed, please try again later",
+      500
+    );
+    return next(error);
+  }
+
+  if (!users || users.length === 0) {
+    const error = new HttpError("No users found with the provided name.", 404);
+    return next(error);
+  }
+
+  res.json({ users: users.map((user) => user.toObject({ getters: true })) });
+};
+
 exports.getUsers = getUsers;
 exports.signup = signup;
 exports.login = login;
 exports.getUsersById = getUsersById;
+exports.searchUsersByName = searchUsersByName;

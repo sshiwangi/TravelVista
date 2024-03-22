@@ -6,6 +6,7 @@ const fileUpload = require("../middleware/file-upload");
 
 //getting places by their id
 router.get("/", usersControllers.getUsers);
+router.get("/search", usersControllers.searchUsersByName);
 router.get("/:uid", usersControllers.getUsersById);
 
 router.post(
