@@ -256,16 +256,44 @@ const deletePlace = async (req, res, next) => {
 const getAllPlaces = async (req, res, next) => {
   let places;
   try {
-    places = await Place.find();
+    places = await Place.aggregate([
+      { $sort: { views: -1 } }, // Sort places by views in descending order
+    ]);
+    console.log(places);
     res.json({
-      places: places.map((place) => place.toObject({ getters: true })),
+      places: places,
     });
+    // console.log("hello");
+    // res.json({
+    //   places: places.map((place) => place.toObject({ getters: true })),
+    // });
+    // console.log("hello");
   } catch (err) {
+    console.error("Error fetching places:", err);
     const error = new HttpError(
       "Fetching places failed, please try again later",
       500
     );
     return next(error);
+  }
+};
+
+// Increment view count when a user views a place
+const incrementViewCount = async (req, res, next) => {
+  const placeId = req.params.pid;
+
+  try {
+    const place = await Place.findById(placeId);
+    if (!place) {
+      return next(new HttpError("Place not found", 404));
+    }
+
+    place.views += 1;
+    await place.save();
+
+    res.status(200).json({ message: "View count incremented successfully" });
+  } catch (err) {
+    next(new HttpError("Failed to increment view count", 500));
   }
 };
 
@@ -275,3 +303,4 @@ exports.createPlace = createPlace;
 exports.updatePlace = updatePlace;
 exports.deletePlace = deletePlace;
 exports.getAllPlaces = getAllPlaces;
+exports.incrementViewCount = incrementViewCount;

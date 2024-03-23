@@ -11,13 +11,15 @@ import ErrorModal from "../../shared/componets/UIElements/ErrorModal";
 import { Link, useNavigate } from "react-router-dom";
 import { FaRegHeart } from "react-icons/fa6";
 import { IoBookmarkOutline } from "react-icons/io5";
+import { IoHeart } from "react-icons/io5";
+import { IoEyeSharp } from "react-icons/io5";
 
 function PlacesItem(props) {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const auth = useContext(AuthContext);
   const [creatorDetails, setCreatorDetails] = useState();
   const navigate = useNavigate();
-
+  console.log(props.id);
   useEffect(() => {
     if (!props.creatorId) {
       return;
@@ -36,14 +38,30 @@ function PlacesItem(props) {
       console.log(err);
     }
   };
+  const incrementViewCount = async (id) => {
+    try {
+      await sendRequest(
+        `${process.env.REACT_APP_BACKEND_URL}/places/${id}/view`,
+        "PATCH"
+      );
+      console.log("updated views count");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handlePlaceItemClick = async (id) => {
+    await incrementViewCount(id);
+    navigate(`/places/placeDetails/${id}`);
+  };
 
   return (
     <React.Fragment>
       <li className="places-item">
-        <Link to={`/places/placeDetails/${props.id}`}>
+        <div className="w-full" onClick={() => handlePlaceItemClick(props.id)}>
           <Card className="places-item__content">
             {isLoading && <LoadingSpinner asOverlay />}
-            <div className="w-[16rem] rounded-md">
+            <div className=" rounded-md">
               <img
                 className="w-full h-[16rem] object-cover rounded-md"
                 src={`${process.env.REACT_APP_ASSET_URL}/${props.image}`}
@@ -53,8 +71,8 @@ function PlacesItem(props) {
             <div className="places-item__info">
               <h2>{props.title}</h2>
               <div className="flex items-center gap-2">
-                <FaRegHeart size={24} />
-                <IoBookmarkOutline size={24} />
+                <FaRegHeart style={{ color: "#9E9EA7" }} size={24} />
+                <IoBookmarkOutline style={{ color: "#9E9EA7" }} size={24} />
               </div>
               {/* <h3>{props.address}</h3>
             <p>{props.description}</p> */}
@@ -73,19 +91,30 @@ function PlacesItem(props) {
             )}
           </div> */}
           </Card>
-        </Link>
-        {creatorDetails && creatorDetails.user && (
-          <div
-            onClick={() => navigate(`/profile/${props.creatorId}`)}
-            className="flex items-center gap-2 cursor-pointer"
-          >
-            <img
-              className="h-[40px] w-[40px] rounded-full"
-              src={`${process.env.REACT_APP_ASSET_URL}/${creatorDetails.user.image}`}
-            />
-            <span>{creatorDetails.user.name}</span>
+        </div>
+        <div className="flex justify-between">
+          {creatorDetails && creatorDetails.user && (
+            <div
+              onClick={() => navigate(`/profile/${props.creatorId}`)}
+              className="flex items-center gap-2 cursor-pointer"
+            >
+              <img
+                className="h-[40px] w-[40px] rounded-full"
+                src={`${process.env.REACT_APP_ASSET_URL}/${creatorDetails.user.image}`}
+              />
+              <span>{creatorDetails.user.name}</span>
+            </div>
+          )}
+          <div className="flex justify-center items-center gap-2">
+            <div className="flex">
+              <IoHeart style={{ color: "#9E9EA7" }} size={24} />
+            </div>
+            <div className="flex gap-1">
+              <IoEyeSharp style={{ color: "#9E9EA7" }} size={24} />
+              <p style={{ color: "#9E9EA7" }}>{props.views}</p>
+            </div>
           </div>
-        )}
+        </div>
       </li>
     </React.Fragment>
   );

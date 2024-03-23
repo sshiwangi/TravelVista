@@ -64,13 +64,10 @@ function UsersProfile() {
       <div className="py-5 border-b-2">
         <ul className="flex text-xl gap-10 font-medium">
           <li className="p-2 hover:bg-[#ff4d1c] active:bg-[#ff4d1c] rounded-md hover:text-white cursor-pointer">
-            Places
+            My Places
           </li>
           <li className="p-2 hover:bg-[#ff4d1c] active:bg-[#ff4d1c] rounded-md hover:text-white cursor-pointer">
-            Blogs
-          </li>
-          <li className="p-2 hover:bg-[#ff4d1c] active:bg-[#ff4d1c] rounded-md hover:text-white cursor-pointer">
-            Collections
+            Liked Places
           </li>
         </ul>
       </div>

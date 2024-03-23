@@ -13,9 +13,11 @@ import { AuthContext } from "../../shared/context/auth-context";
 import ErrorModal from "../../shared/componets/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/componets/UIElements/LoadingSpinner";
 import ImageUpload from "../../shared/componets/FormElements/ImageUpload";
+import { useAuth } from "../../shared/hooks/auth-hook";
 
 const NewPlace = () => {
   const auth = useContext(AuthContext);
+  const { userId } = useAuth();
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [formState, inputHandler] = useForm(
     {
@@ -60,7 +62,7 @@ const NewPlace = () => {
         }
       );
       console.log(response);
-      navigate("/");
+      navigate(`/${userId}/places`);
     } catch (err) {
       // console.log(err);
     }

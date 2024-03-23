@@ -20,17 +20,20 @@ function PlacesList(props) {
     <div className="places-list">
       <div className="flex w-full gap-6 mt-20 justify-center flex-wrap">
         {props.items.map((place) => (
-          <PlacesItem
-            key={place.id}
-            id={place.id}
-            image={place.image}
-            title={place.title}
-            description={place.description}
-            address={place.address}
-            creatorId={place.creator}
-            coordinates={place.location}
-            onDelete={props.onDeletePlace}
-          />
+          <div className="w-[22rem]">
+            <PlacesItem
+              key={place._id}
+              id={place._id}
+              image={place.image}
+              title={place.title}
+              description={place.description}
+              address={place.address}
+              creatorId={place.creator}
+              coordinates={place.location}
+              views={place.views}
+              onDelete={props.onDeletePlace}
+            />
+          </div>
         ))}
       </div>
     </div>

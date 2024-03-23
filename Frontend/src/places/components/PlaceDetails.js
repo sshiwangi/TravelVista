@@ -17,6 +17,7 @@ function PlaceDetails() {
   const openMapHandler = () => setShowMap(true);
   const closeMapHandler = () => setShowMap(false);
   const auth = useContext(AuthContext);
+  console.log(placeId);
 
   const showDeleteWarningHandler = () => {
     setShowConfirmModal(true);
@@ -29,14 +30,19 @@ function PlaceDetails() {
   const confirmDeleteHandler = async () => {
     setShowConfirmModal(false);
     try {
-      await sendRequest(
-        `${process.env.REACT_APP_BACKEND_URL}/places/${placeId}`,
-        "DELETE",
-        null,
-        {
-          Authorization: "Bearer " + auth.token,
-        }
-      );
+      if (placeId) {
+        await sendRequest(
+          `${process.env.REACT_APP_BACKEND_URL}/places/${placeId}`,
+          "DELETE",
+          null,
+          {
+            Authorization: "Bearer " + auth.token,
+          }
+        );
+      } else {
+        console.log("placeId not found");
+      }
+
       //   props.onDelete(props.id);
     } catch (err) {
       console.log(err);

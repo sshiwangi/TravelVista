@@ -9,3 +9,14 @@ export const fetchSearchQuery = async (searchTerm) => {
     throw new Error("Failed to fetch search query"); // Throw the error for handling elsewhere
   }
 };
+
+export const fetchAllPlaces = async () => {
+  try {
+    const responseData = await fetch(
+      process.env.REACT_APP_BACKEND_URL + `/places/`
+    );
+    return responseData.places;
+  } catch (err) {
+    throw err; // Rethrow the error to handle it in the component
+  }
+};
