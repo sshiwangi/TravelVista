@@ -148,7 +148,6 @@ function PlacesItem(props) {
                 alt={props.title}
               />
             </div>
-            ,
             <div className="places-item__info">
               <h2>{props.title}</h2>
               {/* <div className="flex items-center gap-2">
