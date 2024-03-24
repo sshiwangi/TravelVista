@@ -30,7 +30,7 @@ router.patch(
   [check("title").not().isEmpty(), check("description").isLength({ min: 5 })],
   placesControllers.updatePlace
 );
-// router.patch("/:pid/like", placesControllers.likePlace);
+router.patch("/:pid/like", placesControllers.likePlace);
 
 router.delete("/:pid", placesControllers.deletePlace);
 

@@ -297,6 +297,98 @@ const incrementViewCount = async (req, res, next) => {
   }
 };
 
+const likePlace = async (req, res, next) => {
+  const placeId = req.params.pid;
+  const userId = req.userData.userId;
+
+  let place;
+  let user;
+
+  try {
+    place = await Place.findById(placeId);
+    user = await User.findById(userId);
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not like the place",
+      500
+    );
+    return next(error);
+  }
+
+  if (!place) {
+    const error = new HttpError("Place not found", 404);
+    return next(error);
+  }
+
+  if (!user) {
+    const error = new HttpError("User not found", 404);
+    return next(error);
+  }
+
+  if (place.creator.toString() === userId) {
+    const error = new HttpError("You cannot like your own place", 400);
+    return next(error);
+  }
+
+  // if (user.likedPlaces.includes(placeId)) {
+  //   const error = new HttpError("You already liked this place", 400);
+  //   return next(error);
+  // }
+
+  // Check if the user already likes the place
+  const isLiked = user.likedPlaces.includes(placeId);
+
+  try {
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+
+    if (isLiked) {
+      // If already liked, unlike the place
+      place.likes -= 1;
+      user.likedPlaces.pull(placeId);
+
+      await place.save({ session: sess });
+      await user.save({ session: sess });
+
+      await sess.commitTransaction();
+      const updatedUser = await User.findById(userId);
+
+      return res.status(200).json({
+        message: "Place unliked successfully",
+        likes: place.likes,
+        likedPlaces: updatedUser.likedPlaces,
+      });
+    } else {
+      // If not liked, like the place
+      place.likes += 1;
+      user.likedPlaces.push(place);
+    }
+
+    await place.save({ session: sess });
+    await user.save({ session: sess });
+
+    await sess.commitTransaction();
+
+    const updatedUser = await User.findById(userId); // Fetch updated user data with liked places
+
+    return res.status(200).json({
+      message: "Place liked successfully",
+      likes: place.likes,
+      likedPlaces: updatedUser.likedPlaces, // Return updated liked places array
+    });
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not like the place",
+      500
+    );
+    return next(error);
+  }
+
+  // return res
+  //   .status(200)
+  //   .json({ message: "Place liked successfully", likes: place.likes });
+};
+
 exports.getPlaceById = getPlaceById;
 exports.getPlacesByUserId = getPlacesByUserId;
 exports.createPlace = createPlace;
@@ -304,3 +396,4 @@ exports.updatePlace = updatePlace;
 exports.deletePlace = deletePlace;
 exports.getAllPlaces = getAllPlaces;
 exports.incrementViewCount = incrementViewCount;
+exports.likePlace = likePlace;

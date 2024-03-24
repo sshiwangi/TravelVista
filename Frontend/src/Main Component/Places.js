@@ -48,6 +48,7 @@ export default function Places() {
                 creatorId={place.creator}
                 coordinates={place.location}
                 views={place.views}
+                likes={place.likes}
                 // onDelete={props.onDeletePlace}
               />
             </div>

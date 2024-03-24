@@ -30,7 +30,7 @@ function NavLinks(props) {
           All Places
         </NavLink>
       </li>
-      {auth.isLoggedIn && (
+      {/* {auth.isLoggedIn && (
         <li>
           <NavLink
             className="hover:rounded-md active:rounded-md"
@@ -39,7 +39,7 @@ function NavLinks(props) {
             My Places
           </NavLink>
         </li>
-      )}
+      )} */}
       {auth.isLoggedIn && (
         <li>
           <NavLink

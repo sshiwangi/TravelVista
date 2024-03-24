@@ -9,9 +9,11 @@ function PlacesList(props) {
   if (props.items.length === 0) {
     return (
       <div className="place-list center">
-        <Card>
+        <Card className="flex flex-col gap-4 font-medium text-xl">
           <h2>No places found. Maybe Create one?</h2>
-          <Button to="places/new">Share Place</Button>
+          <Button className="w-1/2" to="/places/new">
+            Share Place
+          </Button>
         </Card>
       </div>
     );
@@ -31,6 +33,7 @@ function PlacesList(props) {
               creatorId={place.creator}
               coordinates={place.location}
               views={place.views}
+              likes={place.likes}
               onDelete={props.onDeletePlace}
             />
           </div>
