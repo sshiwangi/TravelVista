@@ -25,7 +25,7 @@ export default function Places() {
     fetchAllPlaces();
   }, [sendRequest]);
   return (
-    <div className="bg-white py-24 sm:py-32">
+    <div className="bg-white py-12 sm:py-24">
       <div className="mx-auto flex flex-col items-center max-w-7xl px-6 lg:px-8">
         <div className="mx-auto flex flex-col items-center max-w-2xl lg:mx-0">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
@@ -56,7 +56,7 @@ export default function Places() {
         </div>
         <div
           onClick={() => navigate("/places")}
-          className="mt-10 rounded-full border-black border-[1px] py-3 px-6"
+          className="mt-10 hover:text-gray-600 rounded-full cursor-pointer border-black border-[1px] py-3 px-6"
         >
           Browse more places
         </div>

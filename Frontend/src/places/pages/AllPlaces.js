@@ -35,9 +35,9 @@ const AllPlaces = () => {
   return (
     <React.Fragment>
       {/* <ErrorModal error={error} onClear={clearError} /> */}
-      <div className="places-page-img-container">
+      {/* <div className="places-page-img-container">
         <SearchBar />
-      </div>
+      </div> */}
       {isLoading && (
         <div className="center">
           <LoadingSpinner />

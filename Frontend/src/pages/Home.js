@@ -1,12 +1,12 @@
 import React from "react";
-import Hero from "../Main Component/Hero";
 import Places from "../Main Component/Places";
 import Footer from "../Main Component/Footer";
+import HeroSection from "../Main Component/HeroSection";
 
 function Home() {
   return (
     <div className="w-full">
-      <Hero />
+      <HeroSection />
       <Places />
       <Footer />
     </div>

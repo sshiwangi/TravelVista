@@ -7,6 +7,7 @@ import SideDrawer from "./SideDrawer";
 import BackDrop from "../UIElements/BackDrop";
 import { CgMenuRight } from "react-icons/cg";
 import logo from "../../../assets/travelVistaLogo.png";
+import SearchBar from "../../../Main Component/SearchBar";
 
 function MainNavigation(props) {
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
@@ -30,20 +31,16 @@ function MainNavigation(props) {
           className="main-navigation__menu-btn"
           onClick={openDrawerHandler}
         />
-        {/* <button
-          className="main-navigation__menu-btn"
-          onClick={openDrawerHandler}
-        >
-          <span />
-          <span />
-          <span />
-        </button> */}
         <h1 className="main-navigation__title">
           <Link to="/">
-            <img className="h-[30px]" src={logo} />
+            <img className="h-[30px]" alt="log" src={logo} />
             {/* TravelVista */}
           </Link>
         </h1>
+        <SearchBar
+          styles="sm:w-3/4 md:w-1/2 md:max-w-[450px] sm:h-[55px] hidden md:block"
+          inputStyles="block w-full h-full rounded-full border-0 py-1.5 bg-[#F4F5FB] pl-10 pr-20 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+        />
         <nav className="main-navigation__header-nav">
           <NavLinks />
         </nav>
