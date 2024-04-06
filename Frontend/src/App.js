@@ -15,11 +15,12 @@ import MainNavigation from "./shared/componets/Navigation/MainNavigation";
 import { AuthContext } from "./shared/context/auth-context";
 import { useAuth } from "./shared/hooks/auth-hook";
 import LoadingSpinner from "./shared/componets/UIElements/LoadingSpinner";
-import Footer from "./shared/componets/Navigation/Footer";
+
 import Home from "./pages/Home";
 import AllPlaces from "./places/pages/AllPlaces";
 import PlaceDetails from "./places/components/PlaceDetails";
 import UsersProfile from "./users/pages/UsersProfile";
+import Footer from "./Main Component/Footer";
 
 const Users = React.lazy(() => import("./users/pages/Users"));
 const NewPlace = React.lazy(() => import("./places/pages/NewPlace"));
@@ -92,6 +93,7 @@ function App() {
             {routes}
           </Suspense>
         </main>
+        <Footer />
       </Router>
     </AuthContext.Provider>
   );

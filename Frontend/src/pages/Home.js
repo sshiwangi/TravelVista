@@ -8,7 +8,6 @@ function Home() {
     <div className="w-full">
       <HeroSection />
       <Places />
-      <Footer />
     </div>
   );
 }
