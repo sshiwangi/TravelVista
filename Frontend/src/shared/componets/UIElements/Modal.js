@@ -7,12 +7,8 @@ import BackDrop from "./BackDrop";
 const ModalOverlay = (props) => {
   const modalRef = useRef();
   const content = (
-    <div
-      className={`modal ${props.className}`}
-      style={props.style}
-      ref={modalRef}
-    >
-      <header className={`modal__header ${props.headerClass}`}>
+    <div className={`modal `} style={props.style} ref={modalRef}>
+      <header className={`modal__header `}>
         <h2>{props.header}</h2>
       </header>
       <form
@@ -20,12 +16,8 @@ const ModalOverlay = (props) => {
           props.onSubmit ? props.onSubmit : (event) => event.preventDefault()
         }
       >
-        <div className={`modal__content ${props.contentClass}`}>
-          {props.children}
-        </div>
-        <footer className={`modal__footer ${props.footerClass}`}>
-          {props.footer}
-        </footer>
+        <div className={`modal__content `}>{props.children}</div>
+        <footer className={`modal__footer `}>{props.footer}</footer>
       </form>
     </div>
   );

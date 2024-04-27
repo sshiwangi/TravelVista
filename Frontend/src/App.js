@@ -64,6 +64,7 @@ function App() {
         />
         {/* <Route path="/users" exact element={<Users />} /> */}
         <Route path="/:userId/places" exact element={<UserPlaces />} />
+        <Route path="/profile/:userId" exact element={<UsersProfile />} />
         <Route path="/auth" exact element={<Auth />} />
         <Route path="*" element={<Navigate to="/auth" />} />
       </Routes>

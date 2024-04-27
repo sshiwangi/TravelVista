@@ -105,7 +105,7 @@ function UsersProfile() {
             }`}
             onClick={() => setActiveTab("myPlaces")}
           >
-            My Places
+            Places
           </li>
           <li
             className={`p-2 hover:bg-[#ff4d1c] active:bg-[#ff4d1c] rounded-md hover:text-white cursor-pointer ${

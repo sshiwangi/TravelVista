@@ -51,7 +51,7 @@ function PlaceDetails() {
 
   useEffect(() => {
     fetchPlacesDetails();
-  }, [sendRequest, placeId]);
+  }, [placeId]);
 
   useEffect(() => {
     if (!userId) {
@@ -67,6 +67,7 @@ function PlaceDetails() {
         process.env.REACT_APP_BACKEND_URL + `/places/${placeId}`
       );
       setPlaceDetails(responseData);
+      console.log(responseData.place.location);
       setUserId(responseData.place.creator);
     } catch (err) {
       console.log(err);
@@ -99,7 +100,8 @@ function PlaceDetails() {
         footerClass="place-item__modal-actions"
         footer={<Button onClick={closeMapHandler}>CLOSE</Button>}
       >
-        <div className="map-container">
+        <div id="map1" className="map-container">
+          {console.log("hello")}
           <MapComponent
             center={placeDetails.place.location}
             zoom={16}

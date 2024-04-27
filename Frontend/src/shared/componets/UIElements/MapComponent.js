@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from "react";
+// import { ol } from "ol";
 import "ol/ol.css"; // Import OpenLayers styles
 import { Map, View } from "ol"; // Import specific OpenLayers components
 import TileLayer from "ol/layer/Tile";
@@ -16,6 +17,7 @@ const MapComponent = (props) => {
   const mapRef = useRef();
 
   const { center, zoom } = props;
+  console.log({ center, zoom });
 
   useEffect(() => {
     // console.log("OpenLayers:", window.ol);
@@ -26,24 +28,26 @@ const MapComponent = (props) => {
         new window.ol.layer.Tile({
           source: new window.ol.source.OSM(),
         }),
-        // // Create a vector layer for the marker
-        // new VectorLayer({
-        //   source: new window.ol.source.Vector({
-        //     features: [
-        //       // Create a feature for the marker
-        //       new Feature({
-        //         geometry: new Point(fromLonLat([center.lng, center.lat])),
-        //       }),
-        //     ],
-        //   }),
-        //   style: new Icon({
-        //     anchor: [0.5, 1],
-        //     src: marker, // Replace with the actual path to your marker icon
-        //   }),
-        // }),
+        new window.ol.layer.Vector({
+          source: new window.ol.source.Vector({
+            features: [
+              new window.ol.Feature({
+                geometry: new window.ol.geom.Point(
+                  window.ol.proj.fromLonLat([center.lng, center.lat])
+                ),
+              }),
+            ],
+          }),
+          style: new window.ol.style.Style({
+            image: new window.ol.style.Icon({
+              anchor: [0.5, 1],
+              src: marker,
+            }),
+          }),
+        }),
       ],
       view: new window.ol.View({
-        center: [center.lng, center.lat],
+        center: window.ol.proj.fromLonLat([center.lng, center.lat]),
         zoom: zoom,
       }),
     });
@@ -53,8 +57,8 @@ const MapComponent = (props) => {
   return (
     <div
       ref={mapRef}
-      className={`map ${props.className}`}
-      style={props.style}
+      className={`map`}
+      // style={props.style}
     ></div>
   );
 };

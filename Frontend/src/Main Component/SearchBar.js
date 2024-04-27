@@ -54,12 +54,12 @@ export default function SearchBar(props) {
           </button>
         </div> */}
       </div>
-      <div class=" rounded-md mt-2 z-10 w-full divide-y shadow-lg max-h-72 overflow-y-auto bg-white">
+      <div className=" rounded-md mt-2 z-10 w-full divide-y shadow-lg max-h-72 overflow-y-auto bg-white">
         {query !== "" ? (
           queryData && queryData.length > 0 ? (
             queryData.map((result) => (
               <a
-                href="/"
+                href={`/profile/${result.id}`}
                 key={result.id}
                 className="block text-left p-2 hover:bg-indigo-50"
               >

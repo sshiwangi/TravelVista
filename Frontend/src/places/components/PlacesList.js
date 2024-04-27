@@ -22,7 +22,7 @@ function PlacesList(props) {
     <div className="places-list">
       <div className="flex w-full gap-6 mt-20 justify-center flex-wrap">
         {props.items.map((place) => (
-          <div className="w-[22rem]">
+          <div key={place._id} className="w-[22rem]">
             <PlacesItem
               key={place._id}
               id={place._id}
