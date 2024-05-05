@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import Button from "../../shared/componets/FormElements/Button";
 import Modal from "../../shared/componets/UIElements/Modal";
@@ -17,7 +17,8 @@ function PlaceDetails() {
   const openMapHandler = () => setShowMap(true);
   const closeMapHandler = () => setShowMap(false);
   const auth = useContext(AuthContext);
-  console.log(placeId);
+  // console.log(placeId);
+  const navigate = useNavigate();
 
   const showDeleteWarningHandler = () => {
     setShowConfirmModal(true);
@@ -50,6 +51,7 @@ function PlaceDetails() {
   };
 
   useEffect(() => {
+    if (!placeId) return;
     fetchPlacesDetails();
   }, [placeId]);
 
@@ -58,10 +60,9 @@ function PlaceDetails() {
       return;
     }
     fetchCreatorDetails();
-  }, [sendRequest, userId]);
+  }, [userId]);
 
   const fetchPlacesDetails = async () => {
-    console.log("hello");
     try {
       const responseData = await sendRequest(
         process.env.REACT_APP_BACKEND_URL + `/places/${placeId}`
@@ -101,7 +102,6 @@ function PlaceDetails() {
         footer={<Button onClick={closeMapHandler}>CLOSE</Button>}
       >
         <div id="map1" className="map-container">
-          {console.log("hello")}
           <MapComponent
             center={placeDetails.place.location}
             zoom={16}
@@ -148,7 +148,10 @@ function PlaceDetails() {
             </p>
           </div>
           {creatorDetails && creatorDetails.user && (
-            <div className="flex gap-2 items-center">
+            <div
+              onClick={() => navigate(`/profile/${userId}`)}
+              className="flex gap-2 items-center"
+            >
               <img
                 className="h-[40px] w-[40px] rounded-full"
                 src={`${process.env.REACT_APP_ASSET_URL}/${creatorDetails.user.image}`}

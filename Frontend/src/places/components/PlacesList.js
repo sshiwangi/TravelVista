@@ -3,10 +3,11 @@ import "./PlacesList.css";
 import Card from "../../shared/componets/UIElements/Card";
 import PlacesItem from "./PlacesItem";
 import Button from "../../shared/componets/FormElements/Button";
-import SearchBar from "../../Main Component/SearchBar";
+// import SearchBar from "../../Main Component/SearchBar";
 
 function PlacesList(props) {
   if (props.items.length === 0) {
+    console.log(props.items._id);
     return (
       <div className="place-list center">
         <Card className="flex flex-col gap-4 font-medium text-xl">
@@ -18,6 +19,7 @@ function PlacesList(props) {
       </div>
     );
   }
+
   return (
     <div className="places-list">
       <div className="flex w-full gap-6 mt-20 justify-center flex-wrap">

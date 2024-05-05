@@ -6,7 +6,7 @@ import PlacesList from "../../places/components/PlacesList";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import LoadingSpinner from "../../shared/componets/UIElements/LoadingSpinner";
 import { useParams } from "react-router-dom";
-import PlaceList from "../../places/components/PlaceList";
+// import PlaceList from "../../places/components/PlaceList";
 
 function UsersProfile() {
   const auth = useContext(AuthContext);
@@ -128,7 +128,15 @@ function UsersProfile() {
         )}
 
         {!isLoading && likedPlaces && activeTab === "likedPlaces" && (
-          <PlacesList items={likedPlaces} />
+          <React.Fragment>
+            {!likedPlaces.length ? (
+              <h1 className="text-xl justify-center items-center flex font-bold">
+                No liked places
+              </h1>
+            ) : (
+              <PlacesList items={likedPlaces} />
+            )}
+          </React.Fragment>
         )}
       </div>
     </section>

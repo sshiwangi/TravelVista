@@ -51,7 +51,7 @@ const NewPlace = () => {
       formData.append("description", formState.inputs.description.value);
       formData.append("address", formState.inputs.address.value);
       formData.append("image", formState.inputs.image.value);
-      console.log(formState.inputs.image.value.name);
+      // console.log(formState.inputs.image.value.name);
 
       const response = await sendRequest(
         `${process.env.REACT_APP_BACKEND_URL}/places`,
@@ -61,7 +61,7 @@ const NewPlace = () => {
           Authorization: "Bearer " + auth.token,
         }
       );
-      console.log(response);
+      // console.log(response);
       navigate(`/${userId}/places`);
     } catch (err) {
       // console.log(err);

@@ -8,7 +8,6 @@ const User = require("../models/user");
 const mongoose = require("mongoose");
 
 const getPlaceById = async (req, res, next) => {
-  // console.log(req.body);
   const placeId = req.params.pid;
 
   let place;
@@ -77,7 +76,7 @@ const createPlace = async (req, res, next) => {
   let coordinates;
   try {
     coordinates = await getCoordsForAddress(address);
-    console.log(coordinates);
+    // console.log(coordinates);
     if (!isValidCoordinates(coordinates)) {
       return next(
         new HttpError("Invalid coordinates from the geocoding API.", 500)
@@ -92,7 +91,7 @@ const createPlace = async (req, res, next) => {
 
   if (req.file && req.file.path) {
     imagePath = req.file.path;
-    console.log(imagePath);
+    // console.log(imagePath);
   } else {
     imagePath =
       "https://media.istockphoto.com/id/1368424494/photo/studio-portrait-of-a-cheerful-woman.webp?b=1&s=170667a&w=0&k=20&c=VEE1756TeCzYH2uPsFZ_P8H3Di2j_jw8aOT6zd7V8JY=";
@@ -106,7 +105,7 @@ const createPlace = async (req, res, next) => {
     image: imagePath,
     creator: req.userData.userId,
   });
-  console.log(createdPlace);
+  // console.log(createdPlace);
   let user;
   try {
     user = await User.findById(req.userData.userId);
@@ -238,7 +237,7 @@ const deletePlace = async (req, res, next) => {
     await place.deleteOne({ session: sess });
     await sess.commitTransaction();
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     const error = new HttpError(
       "Something went wrong, Could not remove place",
       500
@@ -247,7 +246,7 @@ const deletePlace = async (req, res, next) => {
   }
 
   fs.unlink(imagePath, (err) => {
-    console.log(err);
+    // console.log(err);
   });
 
   res.status(200).json({ message: "deleted place" });
@@ -259,7 +258,7 @@ const getAllPlaces = async (req, res, next) => {
     places = await Place.aggregate([
       { $sort: { views: -1 } }, // Sort places by views in descending order
     ]);
-    console.log(places);
+    // console.log(places);
     res.json({
       places: places,
     });

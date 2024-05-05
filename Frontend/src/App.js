@@ -22,9 +22,9 @@ import PlaceDetails from "./places/components/PlaceDetails";
 import UsersProfile from "./users/pages/UsersProfile";
 import Footer from "./Main Component/Footer";
 
-const Users = React.lazy(() => import("./users/pages/Users"));
+// const Users = React.lazy(() => import("./users/pages/Users"));
 const NewPlace = React.lazy(() => import("./places/pages/NewPlace"));
-const UserPlaces = React.lazy(() => import("./places/pages/UserPlaces"));
+// const UserPlaces = React.lazy(() => import("./places/pages/UserPlaces"));
 const UpdatePlace = React.lazy(() => import("./places/pages/UpdatePlace"));
 const Auth = React.lazy(() => import("./users/pages/Auth"));
 
@@ -44,7 +44,7 @@ function App() {
           element={<PlaceDetails />}
         />
         {/* <Route path="/users" exact element={<Users />} /> */}
-        <Route path="/:userId/places" exact element={<UserPlaces />} />
+        {/* <Route path="/:userId/places" exact element={<UserPlaces />} /> */}
         <Route path="/places/new" exact element={<NewPlace />} />
         <Route path="/places/:placeId" exact element={<UpdatePlace />} />
         <Route path="/auth" exact element={<Auth />} />
@@ -63,7 +63,7 @@ function App() {
           element={<PlaceDetails />}
         />
         {/* <Route path="/users" exact element={<Users />} /> */}
-        <Route path="/:userId/places" exact element={<UserPlaces />} />
+        {/* <Route path="/:userId/places" exact element={<UserPlaces />} /> */}
         <Route path="/profile/:userId" exact element={<UsersProfile />} />
         <Route path="/auth" exact element={<Auth />} />
         <Route path="*" element={<Navigate to="/auth" />} />
